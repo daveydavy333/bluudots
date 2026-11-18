@@ -1,6 +1,2 @@
-for f in /etc/hdxi/hevel-config.h /hdxp/src/util-hevel-src/config.h; do
-  sed -i 's/term_flag = "-w"/term_flag = "-a"/' "$f"
-  sed -i 's/terminal_app_ids\[\] = {"foot", /terminal_app_ids[] = {"foot", "foot-256color", /' "$f"
-  sed -i 's|term = "/usr/local/bin/hterm";|term = "foot";|' "$f"
-  grep -n 'term_flag\|char \*const term \|terminal_app_ids' "$f"
-done
+( zcat /proc/config.gz 2>/dev/null || cat /boot/config* 2>/dev/null || cat /hdxp/src/base-kernel-src/.config ) | grep -E '^(# )?CONFIG_(USER_NS|PID_NS|NET_NS|IPC_NS|UTS_NS|SECCOMP|SECCOMP_FILTER|FUSE_FS|CGROUPS|CGROUP_BPF|AUTOFS_FS|DEVTMPFS|TMPFS_POSIX_ACL|TMPFS_XATTR|INOTIFY_USER|SIGNALFD|TIMERFD|FHANDLE|EFIVAR_FS|OVERLAY_FS)[ =]'
+ls /hdxp/pkgs /hdxp/skp 2>/dev/null | grep -E 'openssl|curl|xz|zstd|gnupg|e2fsprogs|ca-cert'
