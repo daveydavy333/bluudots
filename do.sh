@@ -1,2 +1,5 @@
-( zcat /proc/config.gz 2>/dev/null || cat /boot/config* 2>/dev/null || cat /hdxp/src/base-kernel-src/.config ) | grep -E '^(# )?CONFIG_(USER_NS|PID_NS|NET_NS|IPC_NS|UTS_NS|SECCOMP|SECCOMP_FILTER|FUSE_FS|CGROUPS|CGROUP_BPF|AUTOFS_FS|DEVTMPFS|TMPFS_POSIX_ACL|TMPFS_XATTR|INOTIFY_USER|SIGNALFD|TIMERFD|FHANDLE|EFIVAR_FS|OVERLAY_FS)[ =]'
-ls /hdxp/pkgs /hdxp/skp 2>/dev/null | grep -E 'openssl|curl|xz|zstd|gnupg|e2fsprogs|ca-cert'
+FTS_H=$(find /usr /opt -name fts.h 2>/dev/null | head -1)
+[ -n "$FTS_H" ] || { echo "wlmaker: fts.h not found, hdx i devel-musl-fts first" >&2; exit 1; }
+FTS_INC=$(dirname "$FTS_H")
+export CPATH="$FTS_INC${CPATH:+:$CPATH}"
+export LIBRARY_PATH="$(dirname "$FTS_INC")/lib${LIBRARY_PATH:+:$LIBRARY_PATH}"
